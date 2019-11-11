@@ -17,6 +17,8 @@ def convert(x):
             return 12
         elif x == 'k':
             return 13
+        elif x == 't':
+            return 14
         else:
             raise ValueError(x)
 
@@ -60,14 +62,27 @@ def is_win(stacks):
             return False
     return True
 
-def test_get_stack_end():
-    #print(get_stack_end([9, 8]))
-    #print(get_stack_end([10, 8]))
-    #pprint(get_moves(stacks))
+def read_in():
+    print('type in stacks top-down and *then* left-right')
+    state = []
+    for i in range(6):
+        stack = []
+        for j in range(6):
+            stack.append(convert(input(' ')))
+            print('Got {}'.format(convert(stack[-1])))
+        state.append(stack)
+        print('Next stack: ')
+    return state
+
+
+def main():
+    stacks = read_in()
+    print('Initial moves:')
     for move in get_moves(stacks):
-        #show(apply_move(stacks, move))
-        #print('-' * 80)
-        pass
+        print(move)
+        show(apply_move(stacks, move))
+        print('-' * 80)
+    print('\nEventual solution\n')
     active = [stacks]
     while True:
         possible = []
@@ -80,5 +95,4 @@ def test_get_stack_end():
                 possible.append(next_state)
         active = possible
 
-
-test_get_stack_end()
+main()
